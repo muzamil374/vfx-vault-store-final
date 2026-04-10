@@ -1,0 +1,13 @@
+module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        vfxGreen: "#00FFC2",
+        vfxDark: "#080808",
+        vfxPanel: "#121212",
+      },
+    },
+  },
+  plugins: [],
+};
