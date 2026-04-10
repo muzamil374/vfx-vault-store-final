@@ -10,7 +10,7 @@ export const bundlesData = [
   { id: 9, name: "MAGMA GLOW BUNDLE", thumb: "b5.png", zip: "bundle9.zip" },
   { id: 10, name: "SPECTRUM NEON BUNDLE", thumb: "b6.png", zip: "bundle10.zip" },
   { id: 11, name: "OPALESCENT FLOW BUNDLE", thumb: "b8.png", zip: "bundle11.zip" },
-  { id: 12, name: "ANALOG TEXTURE BUNDLE", thumb: "b4.png", zip: "bundle12.zip" }
+  { id: 12, name: "ANALOG TEXTURE BUNDLE", thumb: "b4.png", zip: "bundle12.zip" },
 { id: 13, name: "AETHER GLOW BUNDLE", thumb: "b10.png", zip: "bundle13.zip" },
 { id: 14, name: "VELVET SHADOW BUNDLE", thumb: "b11.png", zip: "bundle14.zip" },
 { id: 15, name: "PRISMATIC WAVE BUNDLE", thumb: "b12.png", zip: "bundle15.zip" },
