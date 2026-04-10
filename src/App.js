@@ -7,7 +7,7 @@ function App() {
 
   const handlePayment = (bundleId) => {
     const options = {
-      key: "rzp_test_SaDlpGdtt3ve1B", // Put your rzp_live_ or rzp_test_ key here
+      key: "rzp_test_SbpheomcLbeylh", // Put your rzp_live_ or rzp_test_ key here
       amount: 6900,
       currency: "INR",
       name: "VFX VAULT",
