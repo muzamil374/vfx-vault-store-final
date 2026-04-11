@@ -1,61 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bundlesData } from './data/bundles';
+import BundleCard from './components/BundleCard'; // Make sure this path is correct
 import './index.css';
 
 function App() {
-  const [purchased, setPurchased] = useState([]);
-
-  const handlePayment = (bundleId) => {
-    const options = {
-      key: "rzp_test_SbpheomcLbeylh", // Put your rzp_live_ or rzp_test_ key here
-      amount: 6900,
-      currency: "INR",
-      name: "VFX VAULT",
-      description: "Instant Unlock",
-      // Skipping user details entry
-      prefill: { contact: "9999999999", email: "customer@vfxvault.com" },
-      config: {
-        display: {
-          blocks: {
-            banks: { name: 'UPI / QR CODE', instruments: [{ method: 'upi' }] },
-          },
-          sequence: ['block.banks'],
-        },
-      },
-      handler: function (response) {
-        if (response.razorpay_payment_id) {
-          setPurchased([...purchased, bundleId]);
-        }
-      },
-      theme: { color: "#00FFC2" }
-    };
-    new window.Razorpay(options).open();
-  };
-
   return (
-    <div>
-      <div className="header">
-        <h1>VFX VAULT</h1>
-        <p style={{ color: '#00FFC2', letterSpacing: '5px' }}>PREMIUM 4K ASSETS • ₹69 ONLY</p>
+    <div className="min-h-screen bg-black text-white">
+      {/* HEADER */}
+      <div className="header py-10 text-center">
+        <h1 className="text-5xl font-black tracking-tighter">VFX VAULT</h1>
+        <p className="mt-2" style={{ color: '#00FFC2', letterSpacing: '5px' }}>
+          PREMIUM 4K ASSETS • STARTS AT ₹69
+        </p>
       </div>
 
-      <div className="bundle-grid">
+      {/* BUNDLE GRID */}
+      <div className="bundle-grid max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {bundlesData.map((bundle) => (
-          <div key={bundle.id} className="card">
-            <img src={`/thumbnails/${bundle.thumb}`} alt={bundle.name} />
-            <h2 style={{ fontSize: '18px', margin: '10px 0' }}>{bundle.name}</h2>
-            
-            <div className="price-row">
-              <span style={{ fontSize: '24px', fontWeight: '900', color: '#00FFC2' }}>₹69</span>
-              
-              {purchased.includes(bundle.id) ? (
-                <a href={`/bundles/${bundle.zip}`} download className="download-btn">DOWNLOAD</a>
-              ) : (
-                <button onClick={() => handlePayment(bundle.id)} className="buy-btn">BUY NOW</button>
-              )}
-            </div>
-          </div>
+          <BundleCard key={bundle.id} bundle={bundle} />
         ))}
+      </div>
+
+      {/* FOOTER MESSAGE */}
+      <div className="text-center py-20 opacity-50 text-xs italic">
+        <p>After payment, please email your screenshot to support@vfxvault.com</p>
+        <p>© 2026 VFX VAULT DIGITAL ASSETS</p>
       </div>
     </div>
   );
