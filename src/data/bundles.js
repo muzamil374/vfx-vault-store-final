@@ -5,7 +5,7 @@ export const bundlesData = [
   { id: 4, name: "CARBON MINT BUNDLE", thumb: "b15.png", zip: "bundle4.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 5, name: "VOLCANIC BUNDLE", thumb: "b14.png", zip: "bundle5.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 6, name: "QUIET LUXURY BUNDLE", thumb: "b9.png", zip: "bundle6.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
-  { id: 7, name: "INDUSTRIAL NOIR BUNDLE", thumb: "b1.png", zip: "bundle7.zip", price: 99, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=99&cu=INR" },
+  { id: 7, name: "INDUSTRIAL NOIR BUNDLE", thumb: "b1.png", zip: "bundle7.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=99&cu=INR" },
   { id: 8, name: "CELESTIAL BOREALIS BUNDLE", thumb: "b3.png", zip: "bundle8.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 9, name: "MAGMA GLOW BUNDLE", thumb: "b5.png", zip: "bundle9.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 10, name: "SPECTRUM NEON BUNDLE", thumb: "b6.png", zip: "bundle10.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
