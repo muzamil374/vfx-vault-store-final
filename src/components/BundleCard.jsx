@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
+import { Play, X } from 'lucide-react'; // Optional: Use an icon library or just text
 
 const BundleCard = ({ bundle }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  
-  // Only you (the Admin) will see clips by adding ?admin=true to the URL
-  const isAdmin = typeof window !== 'undefined' && window.location.search.includes("admin=true");
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleUPILink = () => {
     if (bundle.upiLink) {
@@ -15,24 +13,31 @@ const BundleCard = ({ bundle }) => {
   };
 
   return (
-    <div 
-      className="relative group perspective-1000"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="bg-gray-900 border border-emerald-500/30 rounded-2xl p-4 transition-all duration-500 transform group-hover:rotate-y-12 group-hover:scale-105 shadow-2xl">
+    <div className="relative group perspective-1000">
+      <div className="bg-gray-900 border border-emerald-500/30 rounded-2xl p-4 transition-all duration-500 transform group-hover:scale-[1.02] shadow-2xl relative">
         
-        {/* VIDEO PROTECTION LOGIC */}
-        <div className="relative rounded-xl overflow-hidden h-48 mb-4">
-          {isAdmin && isHovered && bundle.clip ? (
+        {/* --- NEW PREVIEW BUTTON (TOP RIGHT) --- */}
+        {bundle.clip && (
+          <button 
+            onClick={() => setShowPreview(!showPreview)}
+            className="absolute top-6 right-6 z-10 bg-black/60 hover:bg-emerald-500 hover:text-black text-emerald-400 p-2 rounded-full backdrop-blur-md transition-all border border-emerald-500/50"
+            title="Watch Preview"
+          >
+            {showPreview ? "✕ Close" : "▶ Preview"}
+          </button>
+        )}
+
+        {/* MEDIA CONTAINER */}
+        <div className="relative rounded-xl overflow-hidden h-48 mb-4 bg-black">
+          {showPreview ? (
             <video 
               src={`/clips/${bundle.clip}`} 
               autoPlay 
               muted 
               loop 
               playsInline
-              controlsList="nodownload" // Disables the download button
-              onContextMenu={(e) => e.preventDefault()} // Disables Right-Click
+              controlsList="nodownload"
+              onContextMenu={(e) => e.preventDefault()}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -60,10 +65,6 @@ const BundleCard = ({ bundle }) => {
             BUY NOW
           </button>
         </div>
-
-        <p className="text-[10px] text-gray-500 mt-3 text-center italic">
-          *After GPay, email screenshot to download
-        </p>
       </div>
     </div>
   );
