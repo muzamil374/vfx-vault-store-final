@@ -3,54 +3,44 @@ import React, { useState } from 'react';
 const BundleCard = ({ bundle }) => {
   const [showPreview, setShowPreview] = useState(false);
 
-  const handleUPILink = (e) => {
+  // Improved Buy Now logic to ensure it fires
+  const handlePurchase = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    
     if (bundle.upiLink) {
-      window.location.href = bundle.upiLink;
+      // Using _blank to ensure the browser doesn't block the redirect
+      window.open(bundle.upiLink, "_self");
+    } else {
+      alert("UPI Link missing for this bundle!");
     }
   };
 
   return (
-    <div className="bundle-card-wrapper" style={{ padding: '10px' }}>
+    <div className="card-container" style={{ padding: '10px' }}>
       <div 
-        className="main-card" 
+        className="glass-card" 
         style={{
-          background: '#111',
-          border: '1px solid #333',
-          borderRadius: '20px',
-          padding: '15px',
+          background: '#121212',
+          border: '1px solid #222',
+          borderRadius: '24px',
+          padding: '20px',
           position: 'relative',
-          transition: 'all 0.3s ease',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+          boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '15px'
         }}
       >
-        {/* PREVIEW TOGGLE */}
-        {bundle.clip && (
-          <button 
-            onClick={(e) => { e.stopPropagation(); setShowPreview(!showPreview); }}
-            style={{
-              position: 'absolute',
-              top: '25px',
-              right: '25px',
-              zIndex: 100,
-              background: showPreview ? '#ff4d4d' : '#00FFC2',
-              color: '#000',
-              border: 'none',
-              padding: '6px 12px',
-              borderRadius: '30px',
-              fontSize: '10px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              boxShadow: '0 0 15px rgba(0,255,194,0.3)'
-            }}
-          >
-            {showPreview ? "✕ CLOSE" : "▶ PREVIEW"}
-          </button>
-        )}
-
-        {/* IMAGE / VIDEO AREA */}
-        <div style={{ width: '100%', height: '220px', borderRadius: '12px', overflow: 'hidden', background: '#000' }}>
+        {/* MEDIA SECTION */}
+        <div style={{ 
+          width: '100%', 
+          height: '200px', 
+          borderRadius: '16px', 
+          overflow: 'hidden', 
+          background: '#000',
+          position: 'relative'
+        }}>
           {showPreview ? (
             <video 
               src={`/clips/${bundle.clip}`} 
@@ -63,36 +53,75 @@ const BundleCard = ({ bundle }) => {
             <img 
               src={`/thumbnails/${bundle.thumb}`} 
               alt={bundle.name} 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
             />
+          )}
+          
+          {/* SECURE OVERLAY FOR VIDEO */}
+          {showPreview && (
+            <div style={{ 
+              position: 'absolute', 
+              top: '10px', 
+              left: '10px', 
+              background: 'rgba(0,0,0,0.5)', 
+              padding: '4px 8px', 
+              borderRadius: '6px',
+              fontSize: '8px',
+              color: '#00FFC2',
+              pointerEvents: 'none'
+            }}>
+              PREVIEW MODE
+            </div>
           )}
         </div>
 
-        {/* INFO AREA */}
-        <div style={{ marginTop: '15px' }}>
-          <h3 style={{ color: '#fff', fontSize: '16px', textTransform: 'uppercase', margin: '0 0 10px 0' }}>
+        {/* INFO SECTION */}
+        <div>
+          <h3 style={{ color: '#fff', fontSize: '15px', fontWeight: '800', margin: '0 0 5px 0' }}>
             {bundle.name}
           </h3>
+          <p style={{ color: '#666', fontSize: '10px', margin: '0 0 15px 0' }}>4K UNCOMPRESSED • 4 CLIPS</p>
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ color: '#00FFC2', fontSize: '24px', fontWeight: '900' }}>
-              ₹{bundle.price}
-            </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {/* ACTION 1: PREVIEW BUTTON */}
             <button 
-              onClick={handleUPILink}
+              onClick={() => setShowPreview(!showPreview)}
               style={{
-                background: '#00FFC2',
-                color: '#000',
-                border: 'none',
-                padding: '10px 20px',
-                borderRadius: '8px',
+                width: '100%',
+                background: showPreview ? '#333' : 'transparent',
+                color: showPreview ? '#fff' : '#00FFC2',
+                border: '1px solid #00FFC2',
+                padding: '10px',
+                borderRadius: '12px',
+                fontSize: '11px',
                 fontWeight: 'bold',
                 cursor: 'pointer',
-                fontSize: '12px'
+                transition: '0.3s'
               }}
             >
-              BUY NOW
+              {showPreview ? "✕ HIDE CLIPS" : "▶ PREVIEW BUNDLE"}
             </button>
+
+            {/* ACTION 2: BUY NOW BUTTON */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '5px' }}>
+              <span style={{ color: '#00FFC2', fontSize: '22px', fontWeight: '900' }}>₹{bundle.price}</span>
+              <button 
+                onClick={handlePurchase}
+                style={{
+                  background: '#00FFC2',
+                  color: '#000',
+                  border: 'none',
+                  padding: '12px 25px',
+                  borderRadius: '12px',
+                  fontWeight: '900',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  boxShadow: '0 4px 15px rgba(0,255,194,0.3)'
+                }}
+              >
+                BUY NOW
+              </button>
+            </div>
           </div>
         </div>
       </div>
