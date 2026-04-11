@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 const BundleCard = ({ bundle }) => {
   const [showPreview, setShowPreview] = useState(false);
 
-  // Improved Buy Now logic to ensure it fires
   const handlePurchase = (e) => {
     e.preventDefault();
     e.stopPropagation();
     
     if (bundle.upiLink) {
-      // Using _blank to ensure the browser doesn't block the redirect
-      window.open(bundle.upiLink, "_self");
+      // Force direct redirect - works best for GPay/PhonePe
+      window.location.assign(bundle.upiLink);
     } else {
-      alert("UPI Link missing for this bundle!");
+      alert("UPI Link missing! Check bundles.js");
     }
   };
 
@@ -21,107 +20,95 @@ const BundleCard = ({ bundle }) => {
       <div 
         className="glass-card" 
         style={{
-          background: '#121212',
-          border: '1px solid #222',
-          borderRadius: '24px',
-          padding: '20px',
+          background: '#0a0a0a',
+          border: '1px solid #1a1a1a',
+          borderRadius: '20px',
+          padding: '15px',
           position: 'relative',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '15px'
+          gap: '12px',
+          boxShadow: '0 15px 35px rgba(0,0,0,0.8)'
         }}
       >
         {/* MEDIA SECTION */}
         <div style={{ 
           width: '100%', 
-          height: '200px', 
-          borderRadius: '16px', 
+          height: '180px', 
+          borderRadius: '12px', 
           overflow: 'hidden', 
           background: '#000',
           position: 'relative'
         }}>
           {showPreview ? (
             <video 
-              src={`/clips/${bundle.clip}`} 
+              key={bundle.clip} // Forces video to reload when changed
               autoPlay muted loop playsInline
               controlsList="nodownload"
               onContextMenu={(e) => e.preventDefault()}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+            >
+              {/* Check if your folder is named 'clips' or 'videos' */}
+              <source src={`/clips/${bundle.clip}`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           ) : (
             <img 
               src={`/thumbnails/${bundle.thumb}`} 
               alt={bundle.name} 
-              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           )}
           
-          {/* SECURE OVERLAY FOR VIDEO */}
           {showPreview && (
-            <div style={{ 
-              position: 'absolute', 
-              top: '10px', 
-              left: '10px', 
-              background: 'rgba(0,0,0,0.5)', 
-              padding: '4px 8px', 
-              borderRadius: '6px',
-              fontSize: '8px',
-              color: '#00FFC2',
-              pointerEvents: 'none'
-            }}>
+            <div style={{ position: 'absolute', top: '8px', left: '8px', color: '#00FFC2', fontSize: '8px', fontWeight: 'bold', background: 'rgba(0,0,0,0.6)', padding: '2px 6px', borderRadius: '4px' }}>
               PREVIEW MODE
             </div>
           )}
         </div>
 
-        {/* INFO SECTION */}
-        <div>
-          <h3 style={{ color: '#fff', fontSize: '15px', fontWeight: '800', margin: '0 0 5px 0' }}>
-            {bundle.name}
-          </h3>
-          <p style={{ color: '#666', fontSize: '10px', margin: '0 0 15px 0' }}>4K UNCOMPRESSED • 4 CLIPS</p>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {/* ACTION 1: PREVIEW BUTTON */}
+        {/* CONTENT */}
+        <h3 style={{ color: '#fff', fontSize: '13px', fontWeight: 'bold', margin: 0, textTransform: 'uppercase' }}>
+          {bundle.name}
+        </h3>
+        <p style={{ color: '#555', fontSize: '9px', margin: 0 }}>4K UNCOMPRESSED • PRO ASSETS</p>
+
+        {/* BUTTONS */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <button 
+            onClick={() => setShowPreview(!showPreview)}
+            style={{
+              width: '100%',
+              background: 'transparent',
+              color: '#00FFC2',
+              border: '1px solid #00FFC2',
+              padding: '8px',
+              borderRadius: '8px',
+              fontSize: '10px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}
+          >
+            {showPreview ? "✕ HIDE CLIPS" : "▶ PREVIEW BUNDLE"}
+          </button>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{ color: '#00FFC2', fontSize: '20px', fontWeight: '900' }}>₹{bundle.price}</span>
             <button 
-              onClick={() => setShowPreview(!showPreview)}
+              onClick={handlePurchase}
               style={{
-                width: '100%',
-                background: showPreview ? '#333' : 'transparent',
-                color: showPreview ? '#fff' : '#00FFC2',
-                border: '1px solid #00FFC2',
-                padding: '10px',
-                borderRadius: '12px',
-                fontSize: '11px',
-                fontWeight: 'bold',
+                background: '#00FFC2',
+                color: '#000',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '8px',
+                fontWeight: '900',
                 cursor: 'pointer',
-                transition: '0.3s'
+                fontSize: '11px'
               }}
             >
-              {showPreview ? "✕ HIDE CLIPS" : "▶ PREVIEW BUNDLE"}
+              BUY NOW
             </button>
-
-            {/* ACTION 2: BUY NOW BUTTON */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '5px' }}>
-              <span style={{ color: '#00FFC2', fontSize: '22px', fontWeight: '900' }}>₹{bundle.price}</span>
-              <button 
-                onClick={handlePurchase}
-                style={{
-                  background: '#00FFC2',
-                  color: '#000',
-                  border: 'none',
-                  padding: '12px 25px',
-                  borderRadius: '12px',
-                  fontWeight: '900',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                  boxShadow: '0 4px 15px rgba(0,255,194,0.3)'
-                }}
-              >
-                BUY NOW
-              </button>
-            </div>
           </div>
         </div>
       </div>
