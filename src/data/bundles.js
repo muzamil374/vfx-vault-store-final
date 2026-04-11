@@ -15,5 +15,5 @@ export const bundlesData = [
   { id: 14, name: "VELVET SHADOW BUNDLE", thumb: "b11.png", zip: "bundle14.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 15, name: "PRISMATIC WAVE BUNDLE", thumb: "b12.png", zip: "bundle15.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
   { id: 16, name: "NOVA ENERGY BUNDLE", thumb: "b13.png", zip: "bundle16.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
-  { id: 17, name: "VFX ASSETS", thumb: "b17.png", zip: "bundle17.zip", price: 139, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=139&cu=INR" },
+  { id: 17, name: "VFX ASSETS", thumb: "b17.png", zip: "bundle17.zip", price: 69, upiLink: "upi://pay?pa=YOURID@bank&pn=VFX%20VAULT&am=69&cu=INR" },
 ];

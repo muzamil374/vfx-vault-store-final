@@ -51,7 +51,7 @@ const BundleCard = ({ bundle }) => {
         <p className="text-gray-400 text-sm mb-4">4K AI-Generated • VFX Assets Included</p>
         
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-black text-emerald-400">₹{bundle.price || 139}</span>
+          <span className="text-2xl font-black text-emerald-400">₹{bundle.price || 69}</span>
           
           <button 
             onClick={handleUPILink}
