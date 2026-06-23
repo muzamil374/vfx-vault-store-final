@@ -1,5 +1,32 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(script.js|style.css|hero.js)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/thumbnails/(.*)\\.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/assets/previews/(.*)\\.mp4",
+      "headers": [
+        { "key": "Cache-Control",               "value": "public, max-age=31536000, immutable" },
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Content-Type",                 "value": "video/mp4" },
+        { "key": "Accept-Ranges",                "value": "bytes" }
+      ]
+    }
   ]
 }

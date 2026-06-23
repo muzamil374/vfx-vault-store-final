@@ -1,1 +1,16 @@
-﻿node_modules/
+# Ignore Windows system files
+Thumbs.db
+desktop.ini
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore large video backups (if you have them)
+*.raw
+*.mov
+
+# Ignore node modules if you use Vercel CLI
+node_modules/
+.vercel
+.env*.local
+.env*

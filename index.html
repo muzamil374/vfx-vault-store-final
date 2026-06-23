@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VFX VAULT | MUZAMIL — Premium 4K Chroma Assets</title>
+    <meta name="description" content="Premium 4K Chroma Key VFX Assets by Muzamil. Download cinematic visual effects bundles — particles, glows, textures, and more.">
+
+    <!-- DNS prefetch for payment SDK -->
+    <link rel="dns-prefetch" href="https://sdk.cashfree.com">
+
+    <!-- Google Fonts — Space Grotesk + Syne -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Cashfree SDK — unchanged, critical for payments -->
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- ── CINEMATIC LOADER ──────────────────────────────────────────────── -->
+    <div id="vfx-loader" class="vfx-loader" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-logo-wrap">
+                <div class="loader-ring"></div>
+                <div class="loader-ring loader-ring-2"></div>
+                <img src="assets/logo.png" alt="VFX Vault" class="loader-logo">
+            </div>
+            <div class="loader-title">VFX VAULT</div>
+            <div class="loader-bar-wrap"><div id="loader-bar" class="loader-bar"></div></div>
+            <div class="loader-sub">INITIALIZING CINEMATIC ASSETS</div>
+        </div>
+    </div>
+
+    <!-- ── CUSTOM CURSOR ────────────────────────────────────────────────── -->
+    <div id="cursor-dot"  class="cursor-dot"  aria-hidden="true"></div>
+    <div id="cursor-ring" class="cursor-ring" aria-hidden="true"></div>
+
+    <!-- ── HERO HEADER ──────────────────────────────────────────────────── -->
+    <header class="vfx-header">
+        <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+        <div class="header-content">
+            <img src="assets/logo.png" alt="VFX Vault Logo" class="main-logo" fetchpriority="high">
+            <h1 class="vfx-gold-name">VFX VAULT</h1>
+            <p class="muzamil-tag">BY MUZAMIL</p>
+            <p class="premium-tag">PREMIUM 4K CHROMA ASSETS</p>
+            <div class="header-stats" role="list">
+                <div class="stat-item" role="listitem">
+                    <span class="stat-num" id="stat-bundles">34</span>
+                    <span class="stat-label">BUNDLES</span>
+                </div>
+                <div class="stat-divider" aria-hidden="true"></div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-num">4K</span>
+                    <span class="stat-label">QUALITY</span>
+                </div>
+                <div class="stat-divider" aria-hidden="true"></div>
+                <div class="stat-item" role="listitem">
+                    <span class="stat-num">100+</span>
+                    <span class="stat-label">ASSETS</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ── SEARCH & FILTER ──────────────────────────────────────────────── -->
+    <section class="filter-section" aria-label="Search bundles">
+        <div class="search-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input
+                type="text"
+                id="search-input"
+                class="search-input"
+                placeholder="SEARCH BUNDLES..."
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Search VFX bundles"
+            >
+            <button id="search-clear" class="search-clear" style="display:none" aria-label="Clear search">✕</button>
+        </div>
+        <div class="bundle-count" aria-live="polite">
+            <span id="result-count">34</span>&nbsp;BUNDLES
+        </div>
+    </section>
+
+    <!-- ── BUNDLE GRID ──────────────────────────────────────────────────── -->
+    <!-- ── CATEGORY FILTER TABS ───────────────────────────────────────── -->
+    <nav class="category-nav" aria-label="Filter by category">
+        <button class="cat-btn active" data-cat="all">ALL</button>
+        <button class="cat-btn" data-cat="neon">⚡ NEON</button>
+        <button class="cat-btn" data-cat="cosmic">🌌 COSMIC</button>
+        <button class="cat-btn" data-cat="glitch">⚙ GLITCH</button>
+        <button class="cat-btn" data-cat="luxury">✦ LUXURY</button>
+        <button class="cat-btn" data-cat="free">★ FREE</button>
+    </nav>
+
+    <main id="bundle-grid" class="bundle-grid" aria-label="VFX Bundle Marketplace"></main>
+
+    <!-- No results message -->
+    <div id="no-results" class="no-results" style="display:none" role="status">
+        <div class="no-results-icon" aria-hidden="true">⚡</div>
+        <p>No bundles match your search</p>
+    </div>
+
+    <!-- ── SCROLL TO TOP ────────────────────────────────────────────────── -->
+    <button id="scroll-top" class="scroll-top" aria-label="Scroll to top" style="opacity:0;pointer-events:none;">↑</button>
+
+    <!-- ── FOOTER ───────────────────────────────────────────────────────── -->
+    <footer class="vfx-footer">
+        <p class="footer-brand">VFX VAULT <span>by Muzamil</span></p>
+        <p class="footer-copy">© 2025 All rights reserved. Premium 4K Chroma Assets.</p>
+    </footer>
+
+    <!-- ── SCRIPTS ──────────────────────────────────────────────────────── -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+    <script src="hero.js" defer></script>
+
+</body>
+</html>
